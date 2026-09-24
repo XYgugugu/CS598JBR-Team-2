@@ -1,0 +1,5 @@
+NetIDs ['dayuan', 'encheng2', 'yihangs'] with seed 120462750136561247505675876249279604055
+Downloading data:   0%|          | 0.00/83.9k [00:00<?, ?B/s]Downloading data: 100%|██████████| 83.9k/83.9k [00:00<00:00, 236kB/s]Downloading data: 100%|██████████| 83.9k/83.9k [00:00<00:00, 235kB/s]
+Generating test split:   0%|          | 0/164 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 164/164 [00:00<00:00, 1126.92 examples/s]Generating test split: 100%|██████████| 164/164 [00:00<00:00, 1107.07 examples/s]
+Entire Dataset saved to humaneval.jsonl
+Selected 20 problems saved to selected_humaneval_120462750136561247505675876249279604055.jsonl
