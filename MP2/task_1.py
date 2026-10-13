@@ -17,6 +17,20 @@ def save_file(content, file_path):
         file.write(content)
 
 def select_test(entry, rng):
+    # These tests wrap candidate() or generate inputs inside a loop.
+    if entry['task_id'] == 'HumanEval/33':
+        return dict(
+            call='sort_third([5, 6, 3, 4, 8, 9, 2])',
+            assertion='assert tuple(candidate([5, 6, 3, 4, 8, 9, 2])) == tuple([2, 6, 3, 4, 8, 9, 5])',
+            expected_output=[2, 6, 3, 4, 8, 9, 5],
+        )
+    if entry['task_id'] == 'HumanEval/32':
+        # First input from its random.Random(42) test loop: -10 - 2*x = 0.
+        return dict(
+            call='find_zero([-10, -2])',
+            assertion='assert abs(-10 - 2 * candidate([-10, -2])) < 1e-4',
+            expected_output=-5.0, abs_tol=5e-5,
+        )
     cases = []
     for node in ast.walk(ast.parse(entry['test'])):
         if not isinstance(node, ast.Assert):
@@ -44,7 +58,10 @@ def check_response(response, case):
     if isinstance(case['expected_output'], str) and prediction == case['expected_output']:
         return True
     try:
-        return ast.literal_eval(prediction) == case['expected_output']
+        prediction = ast.literal_eval(prediction)
+        if 'abs_tol' in case:
+            return type(prediction) in (int, float) and abs(prediction - case['expected_output']) < case['abs_tol']
+        return prediction == case['expected_output']
     except (ValueError, SyntaxError):
         return False
 
