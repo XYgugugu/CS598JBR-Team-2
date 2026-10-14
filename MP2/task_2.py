@@ -19,6 +19,107 @@ def save_file(content, file_path):
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(content)
 
+CONFTEST = """import signal
+
+import pytest
+
+
+@pytest.fixture(autouse=True)
+def _per_test_timeout():
+    # Fail a single generated test that does not terminate (e.g., an infinite loop
+    # caused by an invalid input) instead of losing the whole test suite.
+    def handler(signum, frame):
+        raise TimeoutError("generated test exceeded 10 seconds")
+    previous = signal.signal(signal.SIGALRM, handler)
+    signal.alarm(10)
+    yield
+    signal.alarm(0)
+    signal.signal(signal.SIGALRM, previous)
+"""
+
+
+def extract_test_code(response):
+    # Take the code inside Markdown fences; a fence left open because the response hit the
+    # token limit runs to the end of the response.
+    blocks = re.findall(r'```(?:python|py)?[ \t]*\n(.*?)(?:```|\Z)', response, re.DOTALL)
+    return '\n\n'.join(blocks).strip() if blocks else response.strip()
+
+
+def split_top_level_chunks(code):
+    # Split the code into top-level statements (imports, test functions, ...). Lines that
+    # start with a closing bracket continue the previous chunk; decorators join the next one.
+    chunks = []
+    for line in code.splitlines():
+        starts_chunk = line.strip() and not line[0].isspace() and line[0] not in ')]}'
+        if starts_chunk and not (chunks and chunks[-1][-1].startswith('@')):
+            chunks.append([line])
+        elif chunks:
+            chunks[-1].append(line)
+        else:
+            chunks.append([line])
+    return chunks
+
+
+def repair_chunk(lines):
+    # Drop the lines that make a chunk unparsable (a statement cut off by the token limit, or a
+    # typo such as `assert remove remove_vowels(...)`), keeping the remaining assertions.
+    lines = list(lines)
+    while lines:
+        try:
+            tree = ast.parse('\n'.join(lines))
+        except SyntaxError as error:
+            line_no = error.lineno if error.lineno and error.lineno <= len(lines) else len(lines)
+            if line_no <= 1:
+                return None
+            del lines[line_no - 1]
+            continue
+        return lines if tree.body else None
+    return None
+
+
+def sanitize_test_code(code, entry, module_name):
+    kept = []
+    for chunk in split_top_level_chunks(code):
+        lines = repair_chunk(chunk)
+        if lines is None:
+            continue
+        node = ast.parse('\n'.join(lines)).body[0]
+        # The tests must exercise the supplied implementation, not a copy of it.
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name == entry['entry_point']:
+            continue
+        kept.append('\n'.join(lines))
+    # Make the canonical functions (and pytest) available even if the model omits the imports.
+    # Future imports must remain the first statements.
+    future = [c for c in kept if c.startswith('from __future__')]
+    rest = [c for c in kept if not c.startswith('from __future__')]
+    header = future + ['import pytest', f'from {module_name} import *']
+    return '\n\n'.join(header + rest) + '\n'
+
+
+def run_pytest(test_file, module_name, test_dir, report_path, junit_path=None, branch=False):
+    command = [
+        sys.executable, '-m', 'pytest', test_file, '-v', '-p', 'no:cacheprovider',
+        '--continue-on-collection-errors',
+        f'--cov={module_name}', '--cov-report=term-missing', f'--cov-report=json:{report_path}',
+    ]
+    if branch:
+        command.append('--cov-branch')
+    if junit_path is not None:
+        command.append(f'--junitxml={junit_path}')
+    try:
+        completed = subprocess.run(
+            command, cwd=test_dir, stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT, text=True, encoding='utf-8',
+            errors='replace', timeout=300,
+        )
+        return completed.stdout, completed.returncode
+    except subprocess.TimeoutExpired as error:
+        output = error.stdout or b''
+        if isinstance(output, bytes):
+            output = output.decode('utf-8', errors='replace')
+        return output + '\nPytest timed out after 300 seconds.\n', None
+
+
 def run_tests(entry, response, vanilla):
     mode = 'vanilla' if vanilla else 'crafted'
     mp2_dir = Path(__file__).resolve().parent
@@ -27,56 +128,39 @@ def run_tests(entry, response, vanilla):
     test_dir.mkdir(parents=True, exist_ok=True)
     report_path = mp2_dir / 'Coverage' / f"{entry['task_id']}_test_{mode}.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
+    branch_report_path = test_dir / 'branch_coverage.json'
     junit_path = test_dir / 'test_results.xml'
+    test_file = f'{module_name}_test.py'
 
-    # Remove Markdown fences while preserving the original response in JSONL.
-    blocks = re.findall(r'```(?:python|py)?\s*\n(.*?)```', response, re.DOTALL)
-    test_code = '\n\n'.join(blocks).strip() if blocks else response.strip()
-    # Make the canonical functions available even if the model omits imports.
-    # Future imports must remain before this added import.
-    import_line = 0
-    try:
-        for node in ast.parse(test_code).body:
-            if isinstance(node, ast.ImportFrom) and node.module == '__future__':
-                import_line = node.end_lineno
-    except SyntaxError:
-        pass  # Let pytest record malformed generated code as a collection error.
-    lines = test_code.splitlines()
-    lines.insert(import_line, f'from {module_name} import *')
-    save_file('\n'.join(lines) + '\n', test_dir / f'{module_name}_test.py')
+    # Post-process the response into an executable test file (the raw response stays in JSONL).
+    test_code = sanitize_test_code(extract_test_code(response), entry, module_name)
+    save_file(test_code, test_dir / test_file)
     save_file(entry['prompt'] + entry['canonical_solution'], test_dir / f'{module_name}.py')
+    save_file(CONFTEST, test_dir / 'conftest.py')
 
     # Do not accidentally read a report from an earlier run.
-    report_path.unlink(missing_ok=True)
-    junit_path.unlink(missing_ok=True)
-    command = [
-        sys.executable, '-m', 'pytest', f'{module_name}_test.py', '-v',
-        f'--cov={module_name}', '--cov-report=term-missing',
-        f'--cov-report=json:{report_path}', f'--junitxml={junit_path}',
-    ]
-    try:
-        completed = subprocess.run(
-            command, cwd=test_dir, stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT, text=True, encoding='utf-8',
-            errors='replace', timeout=120,
-        )
-        pytest_output = completed.stdout
-        exit_code = completed.returncode
-    except subprocess.TimeoutExpired as error:
-        pytest_output = error.stdout or b''
-        if isinstance(pytest_output, bytes):
-            pytest_output = pytest_output.decode('utf-8', errors='replace')
-        pytest_output += '\nPytest timed out after 120 seconds.\n'
-        exit_code = None
+    for path in (report_path, branch_report_path, junit_path):
+        path.unlink(missing_ok=True)
+    pytest_output, exit_code = run_pytest(test_file, module_name, test_dir, report_path, junit_path)
     save_file(pytest_output, test_dir / 'pytest.log')
     print(f"Pytest for {entry['task_id']} ({mode}):\n{pytest_output}")
 
+    if not report_path.exists():
+        # No test could run (e.g., the whole file failed to import): record the coverage of
+        # importing the module without executing any generated test.
+        print(f'No coverage report produced; measuring coverage without generated tests: {report_path}')
+        save_file(f'import {module_name}\n\n\ndef test_no_generated_tests():\n    pass\n',
+                  test_dir / 'no_generated_tests_test.py')
+        run_pytest('no_generated_tests_test.py', module_name, test_dir, report_path)
     coverage = None
-    if report_path.exists() and exit_code is not None:
-        report = json.loads(report_path.read_text(encoding='utf-8'))
-        coverage = report['totals']['percent_covered']
-    else:
-        print(f'No completed coverage report available: {report_path}')
+    if report_path.exists():
+        coverage = json.loads(report_path.read_text(encoding='utf-8'))['totals']['percent_covered']
+
+    # Supplementary metric: statement + branch coverage of the same generated tests.
+    run_pytest(test_file, module_name, test_dir, branch_report_path, branch=True)
+    branch_coverage = None
+    if branch_report_path.exists():
+        branch_coverage = json.loads(branch_report_path.read_text(encoding='utf-8'))['totals']['percent_covered']
 
     stats = dict(tests_total=0, tests_passed=0, tests_failed=0, tests_errors=0, tests_skipped=0)
     if junit_path.exists():
@@ -90,7 +174,7 @@ def run_tests(entry, response, vanilla):
                 stats['tests_skipped'] += 1
             else:
                 stats['tests_passed'] += 1
-    return coverage, dict(pytest_exit_code=exit_code, **stats)
+    return coverage, dict(branch_coverage=branch_coverage, pytest_exit_code=exit_code, **stats)
 
 def prompt_model(dataset, model_name = "deepseek-ai/deepseek-coder-6.7b-instruct", vanilla = True):
     print(f"Working with {model_name} prompt type {vanilla}...")
@@ -122,14 +206,15 @@ def prompt_model(dataset, model_name = "deepseek-ai/deepseek-coder-6.7b-instruct
             """).strip()
         else:
             instruction = dedent(f"""\
-                Generate a pytest test suite for {entry['entry_point']} with high coverage.
+                Generate a pytest test suite for {entry['entry_point']} with high statement and branch coverage.
 
-                1. Cover each branch and early return, and different loop lengths where possible.
-                2. Include typical inputs and valid edge cases, such as boundaries,
-                   empty inputs, single elements, and duplicates.
-                3. Calculate each expected result from the code exactly as written.
-                4. Use separate test_ functions with assertions. Use pytest.approx
-                   when comparing approximate floating-point results.
+                1. Write 8 to 12 separate test_ functions, each with one to three assertions.
+                   Every test must use a different input; do not repeat similar cases.
+                2. Cover each branch and early return, and loops that run zero, one, and many times.
+                3. Include typical inputs and edge cases such as boundaries, empty inputs, single
+                   elements, and duplicates. Only use inputs allowed by the docstring.
+                4. Before writing an assertion, trace the code exactly as written to compute the
+                   expected result; do not guess. Use pytest.approx for floating-point results.
 
                 Only output Python test code, without explanations or documentations.
             """).strip()
