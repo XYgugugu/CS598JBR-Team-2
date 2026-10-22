@@ -126,7 +126,7 @@ def run_tests(entry, response, vanilla):
     module_name = entry['task_id'].replace('/', '_').lower()
     test_dir = mp2_dir / 'GeneratedTests' / mode / module_name
     test_dir.mkdir(parents=True, exist_ok=True)
-    report_path = mp2_dir / 'Coverage' / f"{entry['task_id']}_test_{mode}.json"
+    report_path = mp2_dir / 'Coverage' / f"{entry['task_id'].replace('/', '_')}_test_{mode}.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     branch_report_path = test_dir / 'branch_coverage.json'
     junit_path = test_dir / 'test_results.xml'
