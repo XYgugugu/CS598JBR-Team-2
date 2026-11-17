@@ -3,13 +3,14 @@
 ###################################################################
 
 # TODO: Clone your GitHub repository
-! git clone [Your GitHub Link]
-%cd [Your GitHub Repo]/MP3
+! git clone https://github.com/XYgugugu/CS598JBR-Team-2.git
+%cd CS598JBR-Team-2/MP3
 
 # TODO: Update seed generated in MP1
-seed = "[your_seed]"
+seed = "120462750136561247505675876249279604055"
 
 humaneval_input_dataset = "selected_humaneval_" + seed + ".jsonl"
+! cp ../MP1/{humaneval_input_dataset} .
 
 # Set up requirements for dataset generation
 ! bash -x setup_dataset.sh

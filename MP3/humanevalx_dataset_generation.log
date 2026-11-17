@@ -1,0 +1,14 @@
+/u/dzhao6/miniconda3/envs/cs598-mp1/lib/python3.11/site-packages/datasets/load.py:1429: FutureWarning: The repository for THUDM/humaneval-x contains custom code which must be executed to correctly load the dataset. You can inspect the repository content at https://hf.co/datasets/THUDM/humaneval-x
+You can avoid this message in future by passing the argument `trust_remote_code=True`.
+Passing `trust_remote_code=True` will be mandatory to load this dataset from the next major release of `datasets`.
+  warnings.warn(
+Downloading builder script: 0.00B [00:00, ?B/s]Downloading builder script: 4.77kB [00:00, 13.6MB/s]
+Downloading readme: 0.00B [00:00, ?B/s]Downloading readme: 3.50kB [00:00, 11.3MB/s]
+Downloading data: 0.00B [00:00, ?B/s]Downloading data: 343kB [00:00, 69.0MB/s]
+Generating test split: 0 examples [00:00, ? examples/s]Generating test split: 164 examples [00:00, 281.36 examples/s]
+Entire python dataset saved to humanevalx-python.jsonl
+Downloading data: 0.00B [00:00, ?B/s]Downloading data: 475kB [00:00, 88.7MB/s]
+Generating test split: 0 examples [00:00, ? examples/s]Generating test split: 164 examples [00:00, 4931.40 examples/s]
+Entire java dataset saved to humanevalx-java.jsonl
+20 saved to selected_humanevalx_python_120462750136561247505675876249279604055.jsonl
+20 saved to selected_humanevalx_java_120462750136561247505675876249279604055.jsonl
