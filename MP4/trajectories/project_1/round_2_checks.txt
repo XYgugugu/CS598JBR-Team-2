@@ -1,0 +1,406 @@
+=== BUILD (exit ok: True) ===
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test3.rs` found to be present in multiple build targets:
+  * `bin` target `test3`
+  * `integration-test` target `test3`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test1.rs` found to be present in multiple build targets:
+  * `bin` target `test1`
+  * `integration-test` target `test1`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test2.rs` found to be present in multiple build targets:
+  * `bin` target `test2`
+  * `integration-test` target `test2`
+warning: unused import: `bigint::bigint::BigInt`
+ --> src/bin/test3.rs:1:5
+  |
+1 | use bigint::bigint::BigInt;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: `bigint` (bin "test3") generated 1 warning (run `cargo fix --bin "test3"` to apply 1 suggestion)
+warning: function `factorial` is never used
+ --> src/bin/test1.rs:3:4
+  |
+3 | fn factorial(n: BigInt) -> BigInt {
+  |    ^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+warning: unused import: `bigint::bigint::BigInt`
+ --> src/bin/test2.rs:1:5
+  |
+1 | use bigint::bigint::BigInt;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: `bigint` (bin "test1") generated 1 warning
+warning: `bigint` (bin "test2") generated 1 warning (run `cargo fix --bin "test2"` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+
+=== TESTS ===
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test test_factorial ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test test_basic_operations ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 6 tests
+test test1 ... ok
+test test3 ... ok
+test test4 ... ok
+test test2 ... ok
+test test5 ... ok
+test test6 ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test test_factorial ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test test_basic_operations ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 6 tests
+test test1 ... ok
+test test3 ... ok
+test test5 ... ok
+test test4 ... ok
+test test2 ... ok
+test test6 ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test2.rs` found to be present in multiple build targets:
+  * `bin` target `test2`
+  * `integration-test` target `test2`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test3.rs` found to be present in multiple build targets:
+  * `bin` target `test3`
+  * `integration-test` target `test3`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test1.rs` found to be present in multiple build targets:
+  * `bin` target `test1`
+  * `integration-test` target `test1`
+warning: unused variable: `b`
+ --> src/bin/test3.rs:6:9
+  |
+6 |     let b = BigInt::from_int(1234567890);
+  |         ^ help: if this is intentional, prefix it with an underscore: `_b`
+  |
+  = note: `#[warn(unused_variables)]` on by default
+
+warning: `bigint` (test "test3") generated 1 warning
+warning: unused import: `bigint::bigint::BigInt`
+ --> src/bin/test3.rs:1:5
+  |
+1 | use bigint::bigint::BigInt;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused import: `bigint::bigint::BigInt`
+ --> src/bin/test2.rs:1:5
+  |
+1 | use bigint::bigint::BigInt;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: function `factorial` is never used
+ --> src/bin/test1.rs:3:4
+  |
+3 | fn factorial(n: BigInt) -> BigInt {
+  |    ^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+warning: `bigint` (bin "test3" test) generated 1 warning (1 duplicate)
+warning: `bigint` (bin "test3") generated 1 warning (run `cargo fix --bin "test3"` to apply 1 suggestion)
+warning: `bigint` (bin "test2") generated 1 warning (run `cargo fix --bin "test2"` to apply 1 suggestion)
+warning: `bigint` (bin "test1") generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running unittests src/lib.rs (target/debug/deps/bigint-8a5e847cd87d59af)
+     Running unittests src/bin/test1.rs (target/debug/deps/test1-ca95a46c99728331)
+     Running unittests src/bin/test2.rs (target/debug/deps/test2-6a25d306c83ee192)
+     Running unittests src/bin/test3.rs (target/debug/deps/test3-0f7a67b533ed4280)
+     Running src/bin/test1.rs (target/debug/deps/test1-dce0e76c98ee01fd)
+     Running src/bin/test2.rs (target/debug/deps/test2-a818bd3fd73b89e6)
+     Running src/bin/test3.rs (target/debug/deps/test3-4d19a6fd5384db1c)
+   Doc-tests bigint
+
+=== CLIPPY ===
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test3.rs` found to be present in multiple build targets:
+  * `bin` target `test3`
+  * `integration-test` target `test3`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test2.rs` found to be present in multiple build targets:
+  * `bin` target `test2`
+  * `integration-test` target `test2`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test1.rs` found to be present in multiple build targets:
+  * `bin` target `test1`
+  * `integration-test` target `test1`
+    Checking bigint v0.1.0 (/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1)
+warning: method `from_str` can be confused for the standard trait method `std::str::FromStr::from_str`
+   --> src/bigint.rs:167:5
+    |
+167 | /     pub fn from_str(s: &str) -> Self {
+168 | |         let (negative, body) = match s.strip_prefix('-') {
+169 | |             Some(rest) => (true, rest),
+170 | |             None => (false, s),
+...   |
+177 | |     }
+    | |_____^
+    |
+    = help: consider implementing the trait `std::str::FromStr` or choosing a less ambiguous method name
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#should_implement_trait
+    = note: `-W clippy::should-implement-trait` implied by `-W clippy::style`
+    = help: to override `-W clippy::style` add `#[allow(clippy::should_implement_trait)]`
+
+warning: `bigint` (lib) generated 1 warning (1 duplicate)
+warning: `bigint` (lib test) generated 1 warning
+warning: unused import: `bigint::bigint::BigInt`
+ --> src/bin/test2.rs:1:5
+  |
+1 | use bigint::bigint::BigInt;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: variables can be used directly in the `format!` string
+  --> src/bin/test1.rs:20:5
+   |
+20 |     println!("{}! = {}", n, result);
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+   = note: `-W clippy::uninlined-format-args` implied by `-W clippy::style`
+   = help: to override `-W clippy::style` add `#[allow(clippy::uninlined_format_args)]`
+help: change this to
+   |
+20 -     println!("{}! = {}", n, result);
+20 +     println!("{n}! = {result}");
+   |
+
+warning: unused variable: `b`
+ --> src/bin/test3.rs:6:9
+  |
+6 |     let b = BigInt::from_int(1234567890);
+  |         ^ help: if this is intentional, prefix it with an underscore: `_b`
+  |
+  = note: `#[warn(unused_variables)]` on by default
+
+warning: function `factorial` is never used
+ --> src/bin/test1.rs:3:4
+  |
+3 | fn factorial(n: BigInt) -> BigInt {
+  |    ^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+warning: unused import: `bigint::bigint::BigInt`
+ --> src/bin/test3.rs:1:5
+  |
+1 | use bigint::bigint::BigInt;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: `bigint` (bin "test2") generated 1 warning (run `cargo clippy --fix --bin "test2"` to apply 1 suggestion)
+warning: `bigint` (bin "test1") generated 1 warning
+warning: this boolean expression can be simplified
+  --> src/bin/test2.rs:16:13
+   |
+16 |     assert!(!(x < y));
+   |             ^^^^^^^^ help: try: `(x >= y)`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#nonminimal_bool
+   = note: `-W clippy::nonminimal-bool` implied by `-W clippy::complexity`
+   = help: to override `-W clippy::complexity` add `#[allow(clippy::nonminimal_bool)]`
+
+warning: this boolean expression can be simplified
+  --> src/bin/test2.rs:17:13
+   |
+17 |     assert!(!(x > y));
+   |             ^^^^^^^^ help: try: `(x <= y)`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#nonminimal_bool
+
+warning: this boolean expression can be simplified
+  --> src/bin/test2.rs:23:13
+   |
+23 |     assert!(!(x >= y));
+   |             ^^^^^^^^^ help: try: `(x < y)`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#nonminimal_bool
+
+warning: this boolean expression can be simplified
+  --> src/bin/test2.rs:25:13
+   |
+25 |     assert!(!(x > y));
+   |             ^^^^^^^^ help: try: `(x <= y)`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#nonminimal_bool
+
+warning: `bigint` (test "test1") generated 1 warning (run `cargo clippy --fix --test "test1"` to apply 1 suggestion)
+warning: `bigint` (bin "test3") generated 1 warning (run `cargo clippy --fix --bin "test3"` to apply 1 suggestion)
+warning: `bigint` (bin "test3" test) generated 1 warning
+warning: `bigint` (test "test2") generated 4 warnings (run `cargo clippy --fix --test "test2"` to apply 4 suggestions)
+warning: `bigint` (bin "test1" test) generated 1 warning (1 duplicate)
+warning: `bigint` (bin "test2" test) generated 4 warnings (4 duplicates)
+warning: `bigint` (test "test3") generated 1 warning (1 duplicate)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.10s
+
+=== UNSAFE METRICS (newmetrics raw output) ===
+Pointer arithmetic: 0
+Unsafe lines: 0
+Unsafe calls: 0
+Unsafe casts: 0
+Total spans: 14454
+Unsafe ratio: 0
+Raw pointer dereferences: 0
+Raw pointer declarations: 0
+Pointer arithmetic: 0
+Unsafe lines: 0
+Unsafe calls: 0
+Unsafe casts: 0
+Total spans: 679
+Unsafe ratio: 0
+Raw pointer dereferences: 0
+Raw pointer declarations: 0
+Pointer arithmetic: 0
+Unsafe lines: 0
+Unsafe calls: 0
+Unsafe casts: 0
+Total spans: 2164
+Unsafe ratio: 0
+Raw pointer dereferences: 0
+Raw pointer declarations: 0
+Pointer arithmetic: 0
+Unsafe lines: 0
+Unsafe calls: 0
+Unsafe casts: 0
+Total spans: 1227
+Unsafe ratio: 0
+Raw pointer dereferences: 0
+Raw pointer declarations: 0
+Target test:test1 is not supported
+Target test:test2 is not supported
+Target test:test3 is not supported
+Running cargo newmetrics
+Testing sysroot consistency...
+Done
+Target name: bigint
+     Removed 0 files
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test3.rs` found to be present in multiple build targets:
+  * `bin` target `test3`
+  * `integration-test` target `test3`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test1.rs` found to be present in multiple build targets:
+  * `bin` target `test1`
+  * `integration-test` target `test1`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test2.rs` found to be present in multiple build targets:
+  * `bin` target `test2`
+  * `integration-test` target `test2`
+    Checking bigint v0.1.0 (/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1)
+Running cargo rustc
+cargo rustc finished
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.12s
+Target name: test1
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test1.rs` found to be present in multiple build targets:
+  * `bin` target `test1`
+  * `integration-test` target `test1`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test3.rs` found to be present in multiple build targets:
+  * `bin` target `test3`
+  * `integration-test` target `test3`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test2.rs` found to be present in multiple build targets:
+  * `bin` target `test2`
+  * `integration-test` target `test2`
+Running cargo rustc
+cargo rustc finished
+    Checking bigint v0.1.0 (/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1)
+Running cargo rustc
+warning: function `factorial` is never used
+ --> src/bin/test1.rs:3:4
+  |
+3 | fn factorial(n: BigInt) -> BigInt {
+  |    ^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+cargo rustc finished
+warning: `bigint` (bin "test1") generated 1 warning
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.01s
+Target name: test2
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test2.rs` found to be present in multiple build targets:
+  * `bin` target `test2`
+  * `integration-test` target `test2`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test1.rs` found to be present in multiple build targets:
+  * `bin` target `test1`
+  * `integration-test` target `test1`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test3.rs` found to be present in multiple build targets:
+  * `bin` target `test3`
+  * `integration-test` target `test3`
+Running cargo rustc
+cargo rustc finished
+    Checking bigint v0.1.0 (/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1)
+Running cargo rustc
+warning: unused import: `bigint::bigint::BigInt`
+ --> src/bin/test2.rs:1:5
+  |
+1 | use bigint::bigint::BigInt;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+cargo rustc finished
+warning: `bigint` (bin "test2") generated 1 warning (run `cargo fix --bin "test2"` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.01s
+Target name: test3
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test3.rs` found to be present in multiple build targets:
+  * `bin` target `test3`
+  * `integration-test` target `test3`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test1.rs` found to be present in multiple build targets:
+  * `bin` target `test1`
+  * `integration-test` target `test1`
+warning: file `/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1/src/bin/test2.rs` found to be present in multiple build targets:
+  * `bin` target `test2`
+  * `integration-test` target `test2`
+Running cargo rustc
+cargo rustc finished
+    Checking bigint v0.1.0 (/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_1)
+Running cargo rustc
+warning: unused import: `bigint::bigint::BigInt`
+ --> src/bin/test3.rs:1:5
+  |
+1 | use bigint::bigint::BigInt;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+cargo rustc finished
+warning: `bigint` (bin "test3") generated 1 warning (run `cargo fix --bin "test3"` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.01s
+Target name: test1
+Target name: test2
+Target name: test3
+cargo newmetrics finished

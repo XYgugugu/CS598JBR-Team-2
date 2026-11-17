@@ -1,0 +1,10 @@
+{
+  "pointer_arithmetic": 0,
+  "unsafe_lines": 0,
+  "unsafe_calls": 0,
+  "unsafe_casts": 0,
+  "total_spans": 18524,
+  "raw_pointer_dereferences": 0,
+  "raw_pointer_declarations": 0,
+  "unsafe_ratio": 0.0
+}
