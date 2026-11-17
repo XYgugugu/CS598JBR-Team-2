@@ -48,6 +48,9 @@ or `rm`.
   edge cases (zero, negative numbers, empty input, invalid input, boundary values), not only what
   the visible tests happen to check. Hidden tests may be used for grading.
 - **Never detect specific test inputs and return hard-coded outputs.** That receives zero credit.
+- If a test appears to contradict the behavior of the original C code, keep the C behavior. Do not
+  special-case the test's inputs to make it pass, and do not edit the test. Explain the conflict in
+  your final summary: the test name, what the C code does, and what the test expects.
 - Where C and the Rust interface disagree (for example C returns an error code but the Rust
   signature returns `Option` or `Result`), follow the Rust interface and map the C behavior onto it.
 
@@ -95,16 +98,15 @@ correctness, style, complexity, and perf categories. Beyond Clippy:
   them. Some of them disappear when your code provides the right traits (for example, implementing
   `Ord` in addition to `PartialOrd` for a type the tests compare). Otherwise leave them alone and
   focus on warnings in your own code.
-- **Do not silence Clippy** with `#![allow(...)]` at the crate or module level. The only exception
-  is a warning that is caused purely by a required public signature you are not allowed to change
-  (for example a required `&mut Vec<T>` parameter, or a required method named `from_str` or
-  `to_string`). First try to fix it without changing the signature (for example by implementing
-  `Default` for a type that has a `new()` method). **Do not implement `Display` for a type whose
-  interface already has an inherent `to_string()` method**: Clippy then reports
-  `inherent_to_string_shadow_display`, a correctness warning, which is worse than the original
-  style warning. Only if a fix is impossible, put a narrowly scoped
-  `#[allow(clippy::<lint_name>)]` on that single item with a comment explaining that the signature
-  is required by the interface.
+- **Never silence Clippy** with `#[allow(...)]` or `#![allow(...)]` attributes, anywhere.
+- Some warnings are caused by a required public signature that you are not allowed to change (for
+  example a required `&mut Vec<T>` parameter, or a required method named `from_str` or
+  `to_string`). Fix such a warning only if you can do it without changing the signature (for
+  example by implementing `Default` for a type that has a `new()` method). Otherwise leave it and
+  list it in your final summary.
+- **Do not implement `Display` for a type whose interface already has an inherent `to_string()`
+  method**: Clippy then reports `inherent_to_string_shadow_display`, a correctness warning, which
+  is worse than the original style warning.
 
 # Workflow
 
