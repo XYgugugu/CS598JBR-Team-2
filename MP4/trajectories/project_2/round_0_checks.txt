@@ -1,0 +1,65 @@
+=== BUILD (exit ok: False) ===
+   Compiling libc v0.2.170
+   Compiling zerocopy v0.8.23
+   Compiling cfg-if v1.0.0
+   Compiling getrandom v0.2.15
+   Compiling rand_core v0.6.4
+   Compiling ppv-lite86 v0.2.21
+   Compiling rand_chacha v0.3.1
+   Compiling rand v0.8.5
+   Compiling Holdem_Odds v0.1.0 (/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_2)
+error[E0583]: file not found for module `bucket`
+ --> src/lib.rs:1:1
+  |
+1 | pub mod bucket;
+  | ^^^^^^^^^^^^^^^
+  |
+  = help: to create the module `bucket`, create file "src/bucket.rs" or "src/bucket/mod.rs"
+  = note: if there is a `mod bucket` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `cards`
+ --> src/lib.rs:2:1
+  |
+2 | pub mod cards;
+  | ^^^^^^^^^^^^^^
+  |
+  = help: to create the module `cards`, create file "src/cards.rs" or "src/cards/mod.rs"
+  = note: if there is a `mod cards` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `deck`
+ --> src/lib.rs:3:1
+  |
+3 | pub mod deck;
+  | ^^^^^^^^^^^^^
+  |
+  = help: to create the module `deck`, create file "src/deck.rs" or "src/deck/mod.rs"
+  = note: if there is a `mod deck` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `holdemodds`
+ --> src/lib.rs:4:1
+  |
+4 | pub mod holdemodds;
+  | ^^^^^^^^^^^^^^^^^^^
+  |
+  = help: to create the module `holdemodds`, create file "src/holdemodds.rs" or "src/holdemodds/mod.rs"
+  = note: if there is a `mod holdemodds` elsewhere in the crate already, import it with `use crate::...` instead
+
+error[E0583]: file not found for module `hands`
+ --> src/lib.rs:5:1
+  |
+5 | pub mod hands;
+  | ^^^^^^^^^^^^^^
+  |
+  = help: to create the module `hands`, create file "src/hands.rs" or "src/hands/mod.rs"
+  = note: if there is a `mod hands` elsewhere in the crate already, import it with `use crate::...` instead
+
+For more information about this error, try `rustc --explain E0583`.
+error: could not compile `Holdem_Odds` (lib) due to 5 previous errors
+warning: build failed, waiting for other jobs to finish...
+
+=== TESTS ===
+(skipped: build failed)
+=== CLIPPY ===
+(skipped: build failed)
+=== UNSAFE METRICS (newmetrics raw output) ===
+(skipped: build failed)

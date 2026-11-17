@@ -1,0 +1,858 @@
+=== BUILD (exit ok: True) ===
+warning: crate `Holdem_Odds` should have a snake case name
+  |
+  = help: convert the identifier to snake case: `holdem_odds`
+  = note: `#[warn(non_snake_case)]` on by default
+
+warning: `Holdem_Odds` (lib) generated 1 warning
+warning: unused imports: `Card`, `Rank`, `Suit`, `card_compare`, and `card_swap`
+ --> src/bin/test_cards.rs:1:26
+  |
+1 | use Holdem_Odds::cards::{Card, Rank, Suit, card_compare, card_swap};
+  |                          ^^^^  ^^^^  ^^^^  ^^^^^^^^^^^^  ^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `Card`, `Rank`, `Suit`, and `card_compare`
+ --> src/bin/test_deck.rs:1:26
+  |
+1 | use Holdem_Odds::cards::{Card, Rank, Suit, card_compare};
+  |                          ^^^^  ^^^^  ^^^^  ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `deck_shuffle` and `new_deck`
+ --> src/bin/test_deck.rs:2:25
+  |
+2 | use Holdem_Odds::deck::{new_deck, deck_shuffle};
+  |                         ^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused import: `rand::thread_rng`
+ --> src/bin/test_deck.rs:3:5
+  |
+3 | use rand::thread_rng;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: unused import: `card_compare`
+ --> src/bin/test_hands.rs:1:65
+  |
+1 | use Holdem_Odds::cards::{Card, Suit, new_card_from_chars, Rank, card_compare};
+  |                                                                 ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `HandType`, `hand_classify`, `hand_compare`, and `hand_sort`
+ --> src/bin/test_hands.rs:2:26
+  |
+2 | use Holdem_Odds::hands::{hand_classify, HandType, hand_sort, hand_compare};
+  |                          ^^^^^^^^^^^^^  ^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused imports: `deck_shuffle` and `new_deck`
+ --> src/bin/test_hands.rs:3:25
+  |
+3 | use Holdem_Odds::deck::{new_deck, deck_shuffle};
+  |                         ^^^^^^^^  ^^^^^^^^^^^^
+
+warning: function `new_hand_from_string` is never used
+ --> src/bin/test_hands.rs:4:4
+  |
+4 | fn new_hand_from_string(hand_str: &str) -> [Card; 5] {
+  |    ^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+warning: unused import: `Holdem_Odds::bucket::Bucket`
+ --> src/bin/test_bucket.rs:1:5
+  |
+1 | use Holdem_Odds::bucket::Bucket;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `Card`, `Rank`, and `Suit`
+ --> src/bin/test_bucket.rs:2:26
+  |
+2 | use Holdem_Odds::cards::{Card, Rank, Suit};
+  |                          ^^^^  ^^^^  ^^^^
+
+warning: `Holdem_Odds` (bin "test_cards") generated 1 warning (run `cargo fix --bin "test_cards"` to apply 1 suggestion)
+warning: `Holdem_Odds` (bin "test_deck") generated 3 warnings (run `cargo fix --bin "test_deck"` to apply 3 suggestions)
+warning: `Holdem_Odds` (bin "test_hands") generated 4 warnings (run `cargo fix --bin "test_hands"` to apply 3 suggestions)
+warning: `Holdem_Odds` (bin "test_bucket") generated 2 warnings (run `cargo fix --bin "test_bucket"` to apply 2 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+
+=== TESTS ===
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test test_bucket ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 8 tests
+test test_card_compare ... ok
+test test_card_is_valid ... ok
+test test_card_swap ... ok
+test test_char_to_suit ... ok
+test test_char_to_rank ... ok
+test test_new_card ... ok
+test test_new_card_from_chars ... ok
+test test_new_card_from_string ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test test_new_deck ... ok
+test test_deck_shuffle ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 13 tests
+test test_hand_classify_full_house ... ok
+test test_hand_classify_flush ... ok
+test test_hand_classify_high_card ... ok
+test test_hand_classify_straight ... ok
+test test_hand_classify_straight_flush ... ok
+test test_hand_classify_wheel ... ok
+test test_hand_classify_pair ... ok
+test test_hand_classify_two_pair ... ok
+test test_hand_classify_wheel_flush ... ok
+test test_hand_classify_quads ... ok
+test test_hand_classify_trips ... ok
+test test_hand_sort ... ok
+test test_hand_compare ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+warning: crate `Holdem_Odds` should have a snake case name
+  |
+  = help: convert the identifier to snake case: `holdem_odds`
+  = note: `#[warn(non_snake_case)]` on by default
+
+warning: `Holdem_Odds` (lib) generated 1 warning
+warning: unused import: `rand::thread_rng`
+ --> src/bin/test_deck.rs:3:5
+  |
+3 | use rand::thread_rng;
+  |     ^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: variable does not need to be mutable
+ --> src/bin/test_deck.rs:6:9
+  |
+6 |     let mut deck1 = new_deck();
+  |         ----^^^^^
+  |         |
+  |         help: remove this `mut`
+  |
+  = note: `#[warn(unused_mut)]` on by default
+
+warning: unused imports: `deck_shuffle` and `new_deck`
+ --> src/bin/test_hands.rs:3:25
+  |
+3 | use Holdem_Odds::deck::{new_deck, deck_shuffle};
+  |                         ^^^^^^^^  ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: `Holdem_Odds` (bin "test_deck" test) generated 2 warnings (run `cargo fix --bin "test_deck" --tests` to apply 2 suggestions)
+warning: `Holdem_Odds` (bin "test_hands" test) generated 1 warning (run `cargo fix --bin "test_hands" --tests` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running unittests src/lib.rs (target/debug/deps/Holdem_Odds-cdb7351cfd0014cc)
+     Running unittests src/bin/test_bucket.rs (target/debug/deps/test_bucket-192c503d2c6cef45)
+     Running unittests src/bin/test_cards.rs (target/debug/deps/test_cards-ab11c73cd320ac7d)
+     Running unittests src/bin/test_deck.rs (target/debug/deps/test_deck-845500885b78b4ba)
+     Running unittests src/bin/test_hands.rs (target/debug/deps/test_hands-75c1e0f5bc1eb735)
+   Doc-tests Holdem_Odds
+
+=== CLIPPY ===
+warning: implementation of inherent method `to_string(&self) -> String` for type `cards::Card`
+   --> src/cards.rs:94:5
+    |
+94  | /     pub fn to_string(&self) -> String {
+95  | |         if self.is_valid() {
+96  | |             [self.rank.to_char(), self.suit.to_char()].iter().collect()
+97  | |         } else {
+...   |
+100 | |     }
+    | |_____^
+    |
+    = help: implement trait `Display` for type `cards::Card` instead
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#inherent_to_string
+    = note: `-W clippy::inherent-to-string` implied by `-W clippy::style`
+    = help: to override `-W clippy::style` add `#[allow(clippy::inherent_to_string)]`
+
+warning: writing `&mut Vec` instead of `&mut [_]` involves a new object where a slice will do
+  --> src/deck.rs:23:27
+   |
+23 | pub fn deck_shuffle(deck: &mut Vec<Card>) {
+   |                           ^^^^^^^^^^^^^^ help: change this to: `&mut [Card]`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#ptr_arg
+   = note: `-W clippy::ptr-arg` implied by `-W clippy::style`
+   = help: to override `-W clippy::style` add `#[allow(clippy::ptr_arg)]`
+
+warning: crate `Holdem_Odds` should have a snake case name
+  |
+  = help: convert the identifier to snake case: `holdem_odds`
+  = note: `#[warn(non_snake_case)]` on by default
+
+warning: `Holdem_Odds` (lib) generated 3 warnings
+warning: `Holdem_Odds` (lib test) generated 2 warnings (2 duplicates)
+warning: unused imports: `Card`, `Rank`, `Suit`, `card_compare`, and `card_swap`
+ --> src/bin/test_cards.rs:1:26
+  |
+1 | use Holdem_Odds::cards::{Card, Rank, Suit, card_compare, card_swap};
+  |                          ^^^^  ^^^^  ^^^^  ^^^^^^^^^^^^  ^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `deck_shuffle` and `new_deck`
+ --> src/bin/test_hands.rs:3:25
+  |
+3 | use Holdem_Odds::deck::{new_deck, deck_shuffle};
+  |                         ^^^^^^^^  ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: variables can be used directly in the `format!` string
+  --> src/bin/test_hands.rs:37:13
+   |
+37 |             assert_eq!(hand_classify(&hand), HandType::StraightFlush, "{} should be a straight flush", hand_str);
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+   = note: `-W clippy::uninlined-format-args` implied by `-W clippy::style`
+   = help: to override `-W clippy::style` add `#[allow(clippy::uninlined_format_args)]`
+help: change this to
+   |
+37 -             assert_eq!(hand_classify(&hand), HandType::StraightFlush, "{} should be a straight flush", hand_str);
+37 +             assert_eq!(hand_classify(&hand), HandType::StraightFlush, "{hand_str} should be a straight flush");
+   |
+
+warning: variables can be used directly in the `format!` string
+  --> src/bin/test_hands.rs:67:17
+   |
+67 |                 assert_eq!(hand_classify(&hand), HandType::FourOfAKind, "{:?} should be four of a kind", hand);
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+help: change this to
+   |
+67 -                 assert_eq!(hand_classify(&hand), HandType::FourOfAKind, "{:?} should be four of a kind", hand);
+67 +                 assert_eq!(hand_classify(&hand), HandType::FourOfAKind, "{hand:?} should be four of a kind");
+   |
+
+warning: variables can be used directly in the `format!` string
+  --> src/bin/test_hands.rs:92:13
+   |
+92 |             assert_eq!(hand_classify(&hand), HandType::FullHouse, "{:?} should be a full house", hand);
+   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+help: change this to
+   |
+92 -             assert_eq!(hand_classify(&hand), HandType::FullHouse, "{:?} should be a full house", hand);
+92 +             assert_eq!(hand_classify(&hand), HandType::FullHouse, "{hand:?} should be a full house");
+   |
+
+warning: variables can be used directly in the `format!` string
+   --> src/bin/test_hands.rs:119:13
+    |
+119 |             assert_eq!(hand_classify(&hand), HandType::Flush, "{:?} should be a flush", hand);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+help: change this to
+    |
+119 -             assert_eq!(hand_classify(&hand), HandType::Flush, "{:?} should be a flush", hand);
+119 +             assert_eq!(hand_classify(&hand), HandType::Flush, "{hand:?} should be a flush");
+    |
+
+warning: variables can be used directly in the `format!` string
+   --> src/bin/test_hands.rs:136:9
+    |
+136 |         assert_eq!(hand_classify(&hand), HandType::Straight, "{:?} should be a straight", hand);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+help: change this to
+    |
+136 -         assert_eq!(hand_classify(&hand), HandType::Straight, "{:?} should be a straight", hand);
+136 +         assert_eq!(hand_classify(&hand), HandType::Straight, "{hand:?} should be a straight");
+    |
+
+warning: variables can be used directly in the `format!` string
+   --> src/bin/test_hands.rs:177:17
+    |
+177 |                 assert_eq!(hand_classify(&hand), HandType::ThreeOfAKind, "{:?} should be three of a kind", hand);
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+help: change this to
+    |
+177 -                 assert_eq!(hand_classify(&hand), HandType::ThreeOfAKind, "{:?} should be three of a kind", hand);
+177 +                 assert_eq!(hand_classify(&hand), HandType::ThreeOfAKind, "{hand:?} should be three of a kind");
+    |
+
+warning: variables can be used directly in the `format!` string
+   --> src/bin/test_hands.rs:196:9
+    |
+196 |         assert_eq!(hand_classify(&hand), HandType::TwoPair, "{:?} should be a two pair", hand);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+help: change this to
+    |
+196 -         assert_eq!(hand_classify(&hand), HandType::TwoPair, "{:?} should be a two pair", hand);
+196 +         assert_eq!(hand_classify(&hand), HandType::TwoPair, "{hand:?} should be a two pair");
+    |
+
+warning: variables can be used directly in the `format!` string
+   --> src/bin/test_hands.rs:213:9
+    |
+213 |         assert_eq!(hand_classify(&hand), HandType::Pair, "{:?} should be a pair", hand);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+help: change this to
+    |
+213 -         assert_eq!(hand_classify(&hand), HandType::Pair, "{:?} should be a pair", hand);
+213 +         assert_eq!(hand_classify(&hand), HandType::Pair, "{hand:?} should be a pair");
+    |
+
+warning: variables can be used directly in the `format!` string
+   --> src/bin/test_hands.rs:230:9
+    |
+230 |         assert_eq!(hand_classify(&hand), HandType::HighCard, "{:?} should be a high card", hand);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+help: change this to
+    |
+230 -         assert_eq!(hand_classify(&hand), HandType::HighCard, "{:?} should be a high card", hand);
+230 +         assert_eq!(hand_classify(&hand), HandType::HighCard, "{hand:?} should be a high card");
+    |
+
+warning: variables can be used directly in the `format!` string
+   --> src/bin/test_hands.rs:305:9
+    |
+305 |         assert!(hand1.iter().zip(hand2.iter()).all(|(a, b)| card_compare(a, b) == 0), "Sorted hand {:?} should match {:?}", hand1, hand2);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+help: change this to
+    |
+305 -         assert!(hand1.iter().zip(hand2.iter()).all(|(a, b)| card_compare(a, b) == 0), "Sorted hand {:?} should match {:?}", hand1, hand2);
+305 +         assert!(hand1.iter().zip(hand2.iter()).all(|(a, b)| card_compare(a, b) == 0), "Sorted hand {hand1:?} should match {hand2:?}");
+    |
+
+warning: variables can be used directly in the `format!` string
+   --> src/bin/test_hands.rs:418:9
+    |
+418 |         assert!(hand_compare(&hand1, &hand2) > 0, "{:?} should be greater than {:?}", hand1, hand2);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+help: change this to
+    |
+418 -         assert!(hand_compare(&hand1, &hand2) > 0, "{:?} should be greater than {:?}", hand1, hand2);
+418 +         assert!(hand_compare(&hand1, &hand2) > 0, "{hand1:?} should be greater than {hand2:?}");
+    |
+
+warning: variables can be used directly in the `format!` string
+   --> src/bin/test_hands.rs:419:9
+    |
+419 |         assert!(hand_compare(&hand2, &hand1) < 0, "{:?} should be less than {:?}", hand2, hand1);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+help: change this to
+    |
+419 -         assert!(hand_compare(&hand2, &hand1) < 0, "{:?} should be less than {:?}", hand2, hand1);
+419 +         assert!(hand_compare(&hand2, &hand1) < 0, "{hand2:?} should be less than {hand1:?}");
+    |
+
+warning: variables can be used directly in the `format!` string
+   --> src/bin/test_hands.rs:420:9
+    |
+420 |         assert!(hand_compare(&hand1, &hand1) == 0, "{:?} should be equal to itself", hand1);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+help: change this to
+    |
+420 -         assert!(hand_compare(&hand1, &hand1) == 0, "{:?} should be equal to itself", hand1);
+420 +         assert!(hand_compare(&hand1, &hand1) == 0, "{hand1:?} should be equal to itself");
+    |
+
+warning: variables can be used directly in the `format!` string
+   --> src/bin/test_hands.rs:421:9
+    |
+421 |         assert!(hand_compare(&hand2, &hand2) == 0, "{:?} should be equal to itself", hand2);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+help: change this to
+    |
+421 -         assert!(hand_compare(&hand2, &hand2) == 0, "{:?} should be equal to itself", hand2);
+421 +         assert!(hand_compare(&hand2, &hand2) == 0, "{hand2:?} should be equal to itself");
+    |
+
+warning: unused import: `card_compare`
+ --> src/bin/test_hands.rs:1:65
+  |
+1 | use Holdem_Odds::cards::{Card, Suit, new_card_from_chars, Rank, card_compare};
+  |                                                                 ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `HandType`, `hand_classify`, `hand_compare`, and `hand_sort`
+ --> src/bin/test_hands.rs:2:26
+  |
+2 | use Holdem_Odds::hands::{hand_classify, HandType, hand_sort, hand_compare};
+  |                          ^^^^^^^^^^^^^  ^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused imports: `deck_shuffle` and `new_deck`
+ --> src/bin/test_hands.rs:3:25
+  |
+3 | use Holdem_Odds::deck::{new_deck, deck_shuffle};
+  |                         ^^^^^^^^  ^^^^^^^^^^^^
+
+warning: function `new_hand_from_string` is never used
+ --> src/bin/test_hands.rs:4:4
+  |
+4 | fn new_hand_from_string(hand_str: &str) -> [Card; 5] {
+  |    ^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+warning: unused import: `rand::thread_rng`
+ --> src/bin/test_deck.rs:3:5
+  |
+3 | use rand::thread_rng;
+  |     ^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: variable does not need to be mutable
+ --> src/bin/test_deck.rs:6:9
+  |
+6 |     let mut deck1 = new_deck();
+  |         ----^^^^^
+  |         |
+  |         help: remove this `mut`
+  |
+  = note: `#[warn(unused_mut)]` on by default
+
+warning: transmute used without annotations
+  --> src/bin/test_cards.rs:37:53
+   |
+37 |             let card = Card::new(unsafe { std::mem::transmute(rank) }, unsafe { std::mem::transmute(suit) });
+   |                                                     ^^^^^^^^^ help: consider adding missing annotations: `transmute::<u8, Holdem_Odds::cards::Rank>`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_transmute_annotations
+   = note: `#[warn(clippy::missing_transmute_annotations)]` on by default
+
+warning: transmute used without annotations
+  --> src/bin/test_cards.rs:37:91
+   |
+37 |             let card = Card::new(unsafe { std::mem::transmute(rank) }, unsafe { std::mem::transmute(suit) });
+   |                                                                                           ^^^^^^^^^ help: consider adding missing annotations: `transmute::<u8, Holdem_Odds::cards::Suit>`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_transmute_annotations
+
+warning: transmute used without annotations
+  --> src/bin/test_cards.rs:54:53
+   |
+54 |             let card = Card::new(unsafe { std::mem::transmute(rank) }, unsafe { std::mem::transmute(suit) });
+   |                                                     ^^^^^^^^^ help: consider adding missing annotations: `transmute::<u8, Holdem_Odds::cards::Rank>`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_transmute_annotations
+
+warning: transmute used without annotations
+  --> src/bin/test_cards.rs:54:91
+   |
+54 |             let card = Card::new(unsafe { std::mem::transmute(rank) }, unsafe { std::mem::transmute(suit) });
+   |                                                                                           ^^^^^^^^^ help: consider adding missing annotations: `transmute::<u8, Holdem_Odds::cards::Suit>`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_transmute_annotations
+
+warning: variables can be used directly in the `format!` string
+  --> src/bin/test_cards.rs:72:43
+   |
+72 |             let card = Card::from_string(&format!("{}{}", rank, suit));
+   |                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#uninlined_format_args
+   = note: `-W clippy::uninlined-format-args` implied by `-W clippy::style`
+   = help: to override `-W clippy::style` add `#[allow(clippy::uninlined_format_args)]`
+help: change this to
+   |
+72 -             let card = Card::from_string(&format!("{}{}", rank, suit));
+72 +             let card = Card::from_string(&format!("{rank}{suit}"));
+   |
+
+warning: transmute used without annotations
+  --> src/bin/test_cards.rs:86:51
+   |
+86 |             let c1 = Card::new(unsafe { std::mem::transmute(rank1) }, Suit::Club);
+   |                                                   ^^^^^^^^^ help: consider adding missing annotations: `transmute::<u8, Holdem_Odds::cards::Rank>`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_transmute_annotations
+
+warning: transmute used without annotations
+  --> src/bin/test_cards.rs:87:51
+   |
+87 |             let c2 = Card::new(unsafe { std::mem::transmute(rank2) }, Suit::Diamond);
+   |                                                   ^^^^^^^^^ help: consider adding missing annotations: `transmute::<u8, Holdem_Odds::cards::Rank>`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#missing_transmute_annotations
+
+warning: unused import: `Holdem_Odds::bucket::Bucket`
+ --> src/bin/test_bucket.rs:1:5
+  |
+1 | use Holdem_Odds::bucket::Bucket;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `Card`, `Rank`, and `Suit`
+ --> src/bin/test_bucket.rs:2:26
+  |
+2 | use Holdem_Odds::cards::{Card, Rank, Suit};
+  |                          ^^^^  ^^^^  ^^^^
+
+warning: unused imports: `Card`, `Rank`, `Suit`, and `card_compare`
+ --> src/bin/test_deck.rs:1:26
+  |
+1 | use Holdem_Odds::cards::{Card, Rank, Suit, card_compare};
+  |                          ^^^^  ^^^^  ^^^^  ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `deck_shuffle` and `new_deck`
+ --> src/bin/test_deck.rs:2:25
+  |
+2 | use Holdem_Odds::deck::{new_deck, deck_shuffle};
+  |                         ^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused import: `rand::thread_rng`
+ --> src/bin/test_deck.rs:3:5
+  |
+3 | use rand::thread_rng;
+  |     ^^^^^^^^^^^^^^^^
+
+warning: `Holdem_Odds` (bin "test_cards") generated 1 warning (run `cargo clippy --fix --bin "test_cards"` to apply 1 suggestion)
+warning: `Holdem_Odds` (bin "test_hands" test) generated 15 warnings (run `cargo clippy --fix --bin "test_hands" --tests` to apply 15 suggestions)
+warning: `Holdem_Odds` (bin "test_hands") generated 4 warnings (run `cargo clippy --fix --bin "test_hands"` to apply 3 suggestions)
+warning: `Holdem_Odds` (bin "test_deck" test) generated 2 warnings (run `cargo clippy --fix --bin "test_deck" --tests` to apply 2 suggestions)
+warning: `Holdem_Odds` (bin "test_cards" test) generated 7 warnings (run `cargo clippy --fix --bin "test_cards" --tests` to apply 1 suggestion)
+warning: `Holdem_Odds` (bin "test_bucket") generated 2 warnings (run `cargo clippy --fix --bin "test_bucket"` to apply 2 suggestions)
+warning: `Holdem_Odds` (bin "test_deck") generated 3 warnings (run `cargo clippy --fix --bin "test_deck"` to apply 3 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+
+=== UNSAFE METRICS (newmetrics raw output) ===
+Pointer arithmetic: 0
+Unsafe lines: 0
+Unsafe calls: 0
+Unsafe casts: 0
+Total spans: 11738
+Unsafe ratio: 0
+Raw pointer dereferences: 0
+Raw pointer declarations: 0
+Pointer arithmetic: 0
+Unsafe lines: 0
+Unsafe calls: 0
+Unsafe casts: 0
+Total spans: 1696
+Unsafe ratio: 0
+Raw pointer dereferences: 0
+Raw pointer declarations: 0
+Pointer arithmetic: 0
+Unsafe lines: 0
+Unsafe calls: 0
+Unsafe casts: 0
+Total spans: 3637
+Unsafe ratio: 0
+Raw pointer dereferences: 0
+Raw pointer declarations: 0
+Pointer arithmetic: 0
+Unsafe lines: 0
+Unsafe calls: 0
+Unsafe casts: 0
+Total spans: 1021
+Unsafe ratio: 0
+Raw pointer dereferences: 0
+Raw pointer declarations: 0
+Pointer arithmetic: 0
+Unsafe lines: 0
+Unsafe calls: 0
+Unsafe casts: 0
+Total spans: 18665
+Unsafe ratio: 0
+Raw pointer dereferences: 0
+Raw pointer declarations: 0
+Running cargo newmetrics
+Testing sysroot consistency...
+Done
+Target name: Holdem_Odds
+     Removed 0 files
+   Compiling libc v0.2.170
+   Compiling zerocopy v0.8.23
+    Checking cfg-if v1.0.0
+Running cargo rustc
+Running cargo rustc
+Running cargo rustc
+cargo rustc finished
+cargo rustc finished
+cargo rustc finished
+Running cargo rustc
+Running cargo rustc
+cargo rustc finished
+    Checking getrandom v0.2.15
+Running cargo rustc
+cargo rustc finished
+    Checking rand_core v0.6.4
+Running cargo rustc
+cargo rustc finished
+cargo rustc finished
+    Checking ppv-lite86 v0.2.21
+Running cargo rustc
+cargo rustc finished
+    Checking rand_chacha v0.3.1
+Running cargo rustc
+cargo rustc finished
+    Checking rand v0.8.5
+Running cargo rustc
+cargo rustc finished
+    Checking Holdem_Odds v0.1.0 (/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_2)
+Running cargo rustc
+warning: crate `Holdem_Odds` should have a snake case name
+  |
+  = help: convert the identifier to snake case: `holdem_odds`
+  = note: `#[warn(non_snake_case)]` on by default
+
+cargo rustc finished
+warning: `Holdem_Odds` (lib) generated 2 warnings (1 duplicate)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.18s
+Target name: test_bucket
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+warning: crate `Holdem_Odds` should have a snake case name
+  |
+  = help: convert the identifier to snake case: `holdem_odds`
+  = note: `#[warn(non_snake_case)]` on by default
+
+cargo rustc finished
+warning: `Holdem_Odds` (lib) generated 2 warnings (1 duplicate)
+    Checking Holdem_Odds v0.1.0 (/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_2)
+Running cargo rustc
+warning: unused import: `Holdem_Odds::bucket::Bucket`
+ --> src/bin/test_bucket.rs:1:5
+  |
+1 | use Holdem_Odds::bucket::Bucket;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `Card`, `Rank`, and `Suit`
+ --> src/bin/test_bucket.rs:2:26
+  |
+2 | use Holdem_Odds::cards::{Card, Rank, Suit};
+  |                          ^^^^  ^^^^  ^^^^
+
+cargo rustc finished
+warning: `Holdem_Odds` (bin "test_bucket") generated 2 warnings (run `cargo fix --bin "test_bucket"` to apply 2 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+Target name: test_cards
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+warning: crate `Holdem_Odds` should have a snake case name
+  |
+  = help: convert the identifier to snake case: `holdem_odds`
+  = note: `#[warn(non_snake_case)]` on by default
+
+cargo rustc finished
+warning: `Holdem_Odds` (lib) generated 2 warnings (1 duplicate)
+    Checking Holdem_Odds v0.1.0 (/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_2)
+Running cargo rustc
+warning: unused imports: `Card`, `Rank`, `Suit`, `card_compare`, and `card_swap`
+ --> src/bin/test_cards.rs:1:26
+  |
+1 | use Holdem_Odds::cards::{Card, Rank, Suit, card_compare, card_swap};
+  |                          ^^^^  ^^^^  ^^^^  ^^^^^^^^^^^^  ^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+cargo rustc finished
+warning: `Holdem_Odds` (bin "test_cards") generated 1 warning (run `cargo fix --bin "test_cards"` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.01s
+Target name: test_deck
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+warning: crate `Holdem_Odds` should have a snake case name
+  |
+  = help: convert the identifier to snake case: `holdem_odds`
+  = note: `#[warn(non_snake_case)]` on by default
+
+cargo rustc finished
+warning: `Holdem_Odds` (lib) generated 2 warnings (1 duplicate)
+    Checking Holdem_Odds v0.1.0 (/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_2)
+Running cargo rustc
+warning: unused imports: `Card`, `Rank`, `Suit`, and `card_compare`
+ --> src/bin/test_deck.rs:1:26
+  |
+1 | use Holdem_Odds::cards::{Card, Rank, Suit, card_compare};
+  |                          ^^^^  ^^^^  ^^^^  ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `deck_shuffle` and `new_deck`
+ --> src/bin/test_deck.rs:2:25
+  |
+2 | use Holdem_Odds::deck::{new_deck, deck_shuffle};
+  |                         ^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused import: `rand::thread_rng`
+ --> src/bin/test_deck.rs:3:5
+  |
+3 | use rand::thread_rng;
+  |     ^^^^^^^^^^^^^^^^
+
+cargo rustc finished
+warning: `Holdem_Odds` (bin "test_deck") generated 3 warnings (run `cargo fix --bin "test_deck"` to apply 3 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.01s
+Target name: test_hands
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+cargo rustc finished
+Running cargo rustc
+warning: crate `Holdem_Odds` should have a snake case name
+  |
+  = help: convert the identifier to snake case: `holdem_odds`
+  = note: `#[warn(non_snake_case)]` on by default
+
+cargo rustc finished
+warning: `Holdem_Odds` (lib) generated 2 warnings (1 duplicate)
+    Checking Holdem_Odds v0.1.0 (/Users/jasonzhao/Desktop/Coding Agent/CS598JBR-Team-2/MP4/translations/project_2)
+Running cargo rustc
+warning: unused import: `card_compare`
+ --> src/bin/test_hands.rs:1:65
+  |
+1 | use Holdem_Odds::cards::{Card, Suit, new_card_from_chars, Rank, card_compare};
+  |                                                                 ^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `HandType`, `hand_classify`, `hand_compare`, and `hand_sort`
+ --> src/bin/test_hands.rs:2:26
+  |
+2 | use Holdem_Odds::hands::{hand_classify, HandType, hand_sort, hand_compare};
+  |                          ^^^^^^^^^^^^^  ^^^^^^^^  ^^^^^^^^^  ^^^^^^^^^^^^
+
+warning: unused imports: `deck_shuffle` and `new_deck`
+ --> src/bin/test_hands.rs:3:25
+  |
+3 | use Holdem_Odds::deck::{new_deck, deck_shuffle};
+  |                         ^^^^^^^^  ^^^^^^^^^^^^
+
+warning: function `new_hand_from_string` is never used
+ --> src/bin/test_hands.rs:4:4
+  |
+4 | fn new_hand_from_string(hand_str: &str) -> [Card; 5] {
+  |    ^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+cargo rustc finished
+warning: `Holdem_Odds` (bin "test_hands") generated 4 warnings (run `cargo fix --bin "test_hands"` to apply 3 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.02s
+cargo newmetrics finished

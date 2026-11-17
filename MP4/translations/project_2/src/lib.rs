@@ -1,3 +1,5 @@
+#![forbid(unsafe_code)]
+
 pub mod bucket;
 pub mod cards;
 pub mod deck;
