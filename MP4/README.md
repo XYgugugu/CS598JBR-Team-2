@@ -6,24 +6,26 @@
 |---|---|
 | OS | macOS 26.6.2 (Darwin 25.6.0), Apple Silicon (arm64) |
 | Agent framework | Claude Code CLI 2.1.326 |
-| Model(s) and provider | `claude-opus-5-5` (Claude Opus 5.5) via Anthropic, through Claude Code; single agent, single model |
-| Inference settings | Effort `medium`; max $10 per agent round (`--max-budget-usd`); max 5 rounds. Claude Code does not expose temperature. All settings in `configs/pipeline.json` |
+| Model(s) and provider | `claude-opus-5-5` (Claude Opus 5.5) via Anthropic, through Claude Code signed in with a Claude account (no API key); single agent, single model |
+| Inference settings | Effort `medium`, thinking enabled; context window 1,000,000 tokens, max output 128,000 tokens (Claude Code defaults for this model, recorded in the trajectories); max $10 per agent round (`--max-budget-usd`); max 5 rounds. Claude Code does not expose temperature. All settings in `configs/pipeline.json` |
 | Rust toolchain | `nightly-2025-05-13` (rustc 1.89.0-nightly 8405332bd 2025-05-12, cargo 1.89.0-nightly) |
 | Rust components | `clippy` 0.1.88, `rustfmt`, `rustc-dev`, `llvm-tools-preview` |
 | rustup | 1.29.3 |
 | Python | 3.14.7 |
 | Unsafe-metrics tool | `newmetrics` 0.1.0 |
-| API / usage limits | Each agent round is capped at $10 through `--max-budget-usd`. No rate or usage limits were hit. Actual cost: bigint $0.85 (round 1 $0.74, round 2 $0.11), Holdem-Odds $0.63 (round 1 $0.57, round 2 $0.06). |
+| API / usage limits | Each agent round is capped at $10 through `--max-budget-usd`. No rate or usage limits were hit. Cost at list price, as reported by Claude Code: bigint $0.85 (round 1 $0.74, round 2 $0.11), Holdem-Odds $0.63 (round 1 $0.57, round 2 $0.06). |
 
 ### Tools available to the agent
 
 - File read / search / edit tools (built into Claude Code): may read the C project and the Rust project, may edit only `src/` of the Rust project (never `src/bin/` tests or `Cargo.toml`)
-- Shell commands, allow-listed: `cargo`, `ls`, `mv`, `mkdir`, `rmdir`, `cat`, `head`, `tail`, `grep`, `wc`, `sort`, `uniq`, `diff`, `echo`. No network, `git`, or `rm` (see `configs/claude_settings.json`)
+- Shell commands, allow-listed: `cargo`, `ls`, `mv`, `mkdir`, `rmdir`, `cat`, `head`, `tail`, `grep`, `wc`, `sort`, `uniq`, `diff`, `echo`. Denied: the web tools (`WebFetch`, `WebSearch`), `curl`, `wget`, `git`, and `rm`. `cargo` can still fetch crates (see `configs/claude_settings.json`)
 - `cargo +nightly-2025-05-13 build`
 - `cargo +nightly-2025-05-13 check`
 - `cargo +nightly-2025-05-13 test --no-fail-fast`
 - `cargo +nightly-2025-05-13 clippy --all-targets --all-features -- -W clippy::correctness -W clippy::style -W clippy::complexity -W clippy::perf`
 - `cargo +nightly-2025-05-13 newmetrics`
+
+The agent is launched with `--setting-sources project` and `--strict-mcp-config` (set in `src/run_pipeline.py`), so user-level Claude Code settings and MCP servers are not loaded.
 
 ## Setup
 
@@ -96,12 +98,6 @@ MP4/src/run.sh 1     # project_1 (bigint)
 MP4/src/run.sh 2     # project_2 (Holdem-Odds)
 ```
 
-To start a project again from the untouched CRUST-Bench template:
-
-```bash
-git checkout 0d8779c -- MP4/translations/project_1
-```
-
 ## Pipeline
 
 Files:
@@ -145,9 +141,9 @@ Per project, in `trajectories/project_N/`:
 | `round_K_transcript.md` | The same trajectory as readable Markdown |
 | `round_K_checks.txt` | Raw build / test / Clippy / newmetrics output from the pipeline's checks |
 | `round_K_unsafe_metrics.json` | Aggregated unsafe metrics |
-| `summary.json` | Per-round numbers and final status. Its `total_cost_usd` is overstated: the pipeline added the resumed round-2 session's running total, which already includes round 1. The correct per-round costs are `model_usage_since_last_result.costUSD` in each `round_K_agent.jsonl` (see API / usage limits above). |
+| `summary.json` | Per-round numbers and final status. Its `total_cost_usd` (like the "total cost" line at the end of `execution.log`) is overstated: the pipeline added the resumed round-2 session's running total, which already includes round 1. The correct per-round costs are `model_usage_since_last_result.costUSD` in each `round_K_agent.jsonl` (see API / usage limits above). |
 
-The final Rust code is in `translations/project_N/`. The files `decls.txt`, `derefs.txt`, and `unsafe_spans.txt` in each translation folder are written by the `newmetrics` tool when it runs there. They are not part of the translation.
+The final Rust code is in `translations/project_N/`. The files `decls.txt`, `derefs.txt`, and `unsafe_spans.txt` in each translation folder are written by the `newmetrics` tool when it runs there. They are not part of the translation and are git-ignored.
 
 ## Evaluation
 
