@@ -7,7 +7,7 @@
 | OS | macOS 26.6.2 (Darwin 25.6.0), Apple Silicon (arm64) |
 | Agent framework | Claude Code CLI 2.1.326 |
 | Model(s) and provider | `claude-opus-5-5` (Claude Opus 5.5) via Anthropic, through Claude Code; single agent, single model |
-| Inference settings | Effort `high`; max $10 per agent round (`--max-budget-usd`); max 5 rounds. Claude Code does not expose temperature. All settings in `configs/pipeline.json` |
+| Inference settings | Effort `medium`; max $10 per agent round (`--max-budget-usd`); max 5 rounds. Claude Code does not expose temperature. All settings in `configs/pipeline.json` |
 | Rust toolchain | `nightly-2025-05-13` (rustc 1.89.0-nightly 8405332bd 2025-05-12, cargo 1.89.0-nightly) |
 | Rust components | `clippy` 0.1.88, `rustfmt`, `rustc-dev`, `llvm-tools-preview` |
 | rustup | 1.29.3 |

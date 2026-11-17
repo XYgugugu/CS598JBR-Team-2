@@ -4,7 +4,7 @@
     "agent": {
         "command": "claude",
         "model": "claude-opus-5-5",
-        "effort": "high",
+        "effort": "medium",
         "tools": "Read,Edit,Write,Glob,Grep,Bash",
         "permission_mode": "dontAsk",
         "settings_file": "configs/claude_settings.json",
