@@ -13,15 +13,12 @@
 | rustup | 1.29.3 |
 | Python | 3.14.7 |
 | Unsafe-metrics tool | `newmetrics` 0.1.0 |
-| API / usage limits | TODO |
+| API / usage limits | Each agent round is capped at $10 through `--max-budget-usd`. |
 
 ### Tools available to the agent
 
-- File read / search / edit tools (built into Claude Code): may read the C project and the Rust
-  project, may edit only `src/` of the Rust project (never `src/bin/` tests or `Cargo.toml`)
-- Shell commands, allow-listed: `cargo`, `ls`, `mv`, `mkdir`, `rmdir`, `cat`, `head`, `tail`,
-  `grep`, `wc`, `sort`, `uniq`, `diff`, `echo`. No network, `git`, or `rm`
-  (see `configs/claude_settings.json`)
+- File read / search / edit tools (built into Claude Code): may read the C project and the Rust project, may edit only `src/` of the Rust project (never `src/bin/` tests or `Cargo.toml`)
+- Shell commands, allow-listed: `cargo`, `ls`, `mv`, `mkdir`, `rmdir`, `cat`, `head`, `tail`, `grep`, `wc`, `sort`, `uniq`, `diff`, `echo`. No network, `git`, or `rm` (see `configs/claude_settings.json`)
 - `cargo +nightly-2025-05-13 build`
 - `cargo +nightly-2025-05-13 check`
 - `cargo +nightly-2025-05-13 test --no-fail-fast`
@@ -90,10 +87,7 @@ The C projects in `subjects/` and the Rust interfaces/tests come from the CRUST-
 | project_1 | `bigint` | `bigint` (8 tests) |
 | project_2 | `Holdem-Odds` | `Holdem_Odds` (24 tests) |
 
-The templates are committed unmodified (commit `0d8779c`). As shipped they do not compile, because
-`lib.rs` declares modules whose files are in `src/interfaces/`. The agent is instructed to apply
-CRUST-Bench's own formatting step (`src/check_benchmarks/check_build.py`): move each file from
-`src/interfaces/` up into `src/`. File contents, tests, and public signatures are not modified.
+The templates are committed unmodified (commit `0d8779c`). As shipped they do not compile, because `lib.rs` declares modules whose files are in `src/interfaces/`. The agent is instructed to apply CRUST-Bench's own formatting step (`src/check_benchmarks/check_build.py`): move each file from `src/interfaces/` up into `src/`. File contents, tests, and public signatures are not modified.
 
 ## Run
 
@@ -125,29 +119,19 @@ Files:
 Loop:
 
 1. **Baseline (round 0):** run all checks on the untouched template.
-2. **Inspect + generate (agent):** Claude Code (`claude -p`, working directory
-   `translations/project_N/`, read access to `subjects/project_N/`) reads the C code, the Rust
-   interface, and the tests, then writes the Rust implementation. Inside its session it runs
-   `cargo build` / `test` / `clippy` itself and repairs based on the output.
+2. **Inspect + generate (agent):** Claude Code (`claude -p`, working directory `translations/project_N/`, read access to `subjects/project_N/`) reads the C code, the Rust interface, and the tests, then writes the Rust implementation. Inside its session it runs `cargo build` / `test` / `clippy` itself and repairs based on the output.
 3. **Observe (pipeline):** after the agent stops, the pipeline independently
    - restores any changed test file or `Cargo.toml` (and reports it to the agent),
-   - runs `cargo build`, `cargo test --no-fail-fast`, the Clippy command (plus one run per category
-     to count correctness / style / complexity / perf), and `cargo newmetrics`.
-4. **Repair:** if a check is not clean, the pipeline sends the failing results (build errors,
-   failing tests, Clippy output, unsafe metrics) to the **same** agent session (`--resume`) and
-   goes back to step 2.
+   - runs `cargo build`, `cargo test --no-fail-fast`, the Clippy command (plus one run per category to count correctness / style / complexity / perf), and `cargo newmetrics`.
+4. **Repair:** if a check is not clean, the pipeline sends the failing results (build errors, failing tests, Clippy output, unsafe metrics) to the **same** agent session (`--resume`) and goes back to step 2.
 
 **Stopping condition** (first one that applies):
 
-- all checks pass: build OK, all tests pass, 0 Clippy warnings in the agent's own code, all four
-  primary unsafe metrics are 0, tests and `Cargo.toml` unchanged;
+- all checks pass: build OK, all tests pass, 0 Clippy warnings in the agent's own code, all four primary unsafe metrics are 0, tests and `Cargo.toml` unchanged;
 - 5 agent rounds reached;
-- no progress: build status, tests passed, Clippy count, and unsafe total are identical to the
-  previous round.
+- no progress: build status, tests passed, Clippy count, and unsafe total are identical to the previous round.
 
-Clippy warnings inside the provided test files (`src/bin/`) cannot be fixed without editing the
-tests, so the stopping condition counts only warnings in the agent's own code. Both counts are
-recorded in `summary.json`.
+Clippy warnings inside the provided test files (`src/bin/`) cannot be fixed without editing the tests, so the stopping condition counts only warnings in the agent's own code. Both counts are recorded in `summary.json`.
 
 ## Outputs
 
@@ -163,8 +147,46 @@ Per project, in `trajectories/project_N/`:
 | `round_K_unsafe_metrics.json` | Aggregated unsafe metrics |
 | `summary.json` | Per-round numbers, cost, and final status |
 
-The final Rust code is in `translations/project_N/`.
-
-## Outputs
+The final Rust code is in `translations/project_N/`. The files `decls.txt`, `derefs.txt`, and `unsafe_spans.txt` in each translation folder are written by the `newmetrics` tool when it runs there. They are not part of the translation.
 
 ## Evaluation
+
+Final results (from `trajectories/project_N/summary.json`), toolchain `nightly-2025-05-13`:
+
+| Project | Compiles | Tests passed | Pass rate | Agent rounds | Stop reason |
+|---|---|---|---|---|---|
+| bigint | Yes | 8 / 8 | 100% | 2 | no progress |
+| Holdem-Odds | Yes | 24 / 24 | 100% | 2 | no progress |
+
+bigint's `Cargo.toml` registers each test file both as a binary and as a test target, so `cargo test` prints 16 results for 8 unique tests; the table counts unique tests.
+
+| Project | Unsafe lines | Unsafe calls | Unsafe casts | Pointer arithmetic |
+|---|---|---|---|---|
+| bigint | 0 | 0 | 0 | 0 |
+| Holdem-Odds | 0 | 0 | 0 | 0 |
+
+Both crates compile with `#![forbid(unsafe_code)]`; raw-pointer declarations and dereferences are also 0.
+
+Clippy warnings in our translated code (`src/`, excluding the provided test files):
+
+| Project | Correctness | Style | Complexity | Performance | Total |
+|---|---|---|---|---|---|
+| bigint | 0 | 1 | 0 | 0 | 1 |
+| Holdem-Odds | 0 | 2 | 0 | 0 | 2 |
+
+These remaining warnings are caused by public signatures that the CRUST-Bench interface requires and that may not be changed: `BigInt::from_str` (`should_implement_trait`), `deck_shuffle(deck: &mut Vec<Card>)` (`ptr_arg`), and `Card::to_string` (`inherent_to_string`). Round 2 of each run sent these warnings back to the agent, which confirmed they cannot be fixed without changing the interface, and the run then stopped with "no progress".
+
+**Additional warnings from the provided test files.** The required Clippy command uses `--all-targets`, so it also checks the benchmark's test files in `src/bin/`. These files are part of the specification and may not be modified, so the warnings in them cannot be fixed by us:
+
+| Project | Source | Correctness | Style | Complexity | Performance | Total |
+|---|---|---|---|---|---|---|
+| bigint | Provided test files | 0 | 1 | 4 | 0 | 5 |
+| bigint | **Total reported by the Clippy command** | 0 | 2 | 4 | 0 | **6** |
+| Holdem-Odds | Provided test files | 0 | 15 | 0 | 0 | 15 |
+| Holdem-Odds | **Total reported by the Clippy command** | 0 | 17 | 0 | 0 | **17** |
+
+The test-file warnings are `uninlined_format_args` (style), e.g. `println!("{}! = {}", n, result);` in `test1.rs` and `assert_eq!(..., "{} should be a straight flush", hand_str);` in `test_hands.rs`, and `nonminimal_bool` (complexity) on expressions such as `assert!(!(x < y));` in `test2.rs`. The unmodified CRUST-Bench templates already produce the same number of test-file warnings (5 for bigint, 15 for Holdem-Odds) before any translation.
+
+No translated code was edited by hand, and all Rust code was written by the agent.
+
+The full analysis is in the MP4 section of the progress report.
