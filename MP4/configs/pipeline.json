@@ -1,0 +1,46 @@
+{
+    "toolchain": "nightly-2025-05-13",
+
+    "agent": {
+        "command": "claude",
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "tools": "Read,Edit,Write,Glob,Grep,Bash",
+        "permission_mode": "dontAsk",
+        "settings_file": "configs/claude_settings.json",
+        "system_prompt_file": "configs/prompts/system.md",
+        "initial_prompt_file": "configs/prompts/initial.md",
+        "repair_prompt_file": "configs/prompts/repair.md",
+        "max_budget_usd_per_round": 10
+    },
+
+    "stopping_condition": {
+        "max_rounds": 5,
+        "max_clippy_warnings_in_own_code": 0,
+        "stop_when_no_progress": true
+    },
+
+    "checks": {
+        "timeout_seconds": 900,
+        "clippy_categories": ["correctness", "style", "complexity", "perf"],
+        "newmetrics_aggregate_script": "newmetrics/aggregate.py",
+        "max_feedback_chars_per_section": 6000
+    },
+
+    "protected_files": ["Cargo.toml", "src/bin"],
+
+    "projects": {
+        "1": {
+            "name": "bigint",
+            "subject_dir": "subjects/project_1",
+            "translation_dir": "translations/project_1",
+            "trajectory_dir": "trajectories/project_1"
+        },
+        "2": {
+            "name": "Holdem-Odds",
+            "subject_dir": "subjects/project_2",
+            "translation_dir": "translations/project_2",
+            "trajectory_dir": "trajectories/project_2"
+        }
+    }
+}

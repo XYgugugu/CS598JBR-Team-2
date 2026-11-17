@@ -1,0 +1,35 @@
+{
+    "permissions": {
+        "allow": [
+            "Edit(./src/**)",
+            "Write(./src/**)",
+            "Bash(cargo *)",
+            "Bash(ls)",
+            "Bash(ls *)",
+            "Bash(mv *)",
+            "Bash(mkdir *)",
+            "Bash(rmdir *)",
+            "Bash(cat *)",
+            "Bash(head *)",
+            "Bash(tail *)",
+            "Bash(grep *)",
+            "Bash(wc *)",
+            "Bash(sort *)",
+            "Bash(uniq *)",
+            "Bash(diff *)",
+            "Bash(echo *)"
+        ],
+        "deny": [
+            "Edit(./src/bin/**)",
+            "Write(./src/bin/**)",
+            "Edit(./Cargo.toml)",
+            "Write(./Cargo.toml)",
+            "WebFetch",
+            "WebSearch",
+            "Bash(git *)",
+            "Bash(curl *)",
+            "Bash(wget *)",
+            "Bash(rm *)"
+        ]
+    }
+}
