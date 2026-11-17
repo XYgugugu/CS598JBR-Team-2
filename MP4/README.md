@@ -98,6 +98,12 @@ MP4/src/run.sh 1     # project_1 (bigint)
 MP4/src/run.sh 2     # project_2 (Holdem-Odds)
 ```
 
+`translations/` already holds the finished Rust code, so these commands run the pipeline on top of it. To rerun a translation from scratch, first restore the untouched CRUST-Bench template. A run also rewrites `trajectories/project_N/`.
+
+```bash
+git restore --source=0d8779c --staged --worktree -- MP4/translations/project_1   # or project_2
+```
+
 ## Pipeline
 
 Files:
