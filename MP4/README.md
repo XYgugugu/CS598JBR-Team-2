@@ -13,7 +13,7 @@
 | rustup | 1.29.3 |
 | Python | 3.14.7 |
 | Unsafe-metrics tool | `newmetrics` 0.1.0 |
-| API / usage limits | Each agent round is capped at $10 through `--max-budget-usd`. |
+| API / usage limits | Each agent round is capped at $10 through `--max-budget-usd`. No rate or usage limits were hit. Actual cost: bigint $0.85 (round 1 $0.74, round 2 $0.11), Holdem-Odds $0.63 (round 1 $0.57, round 2 $0.06). |
 
 ### Tools available to the agent
 
@@ -145,7 +145,7 @@ Per project, in `trajectories/project_N/`:
 | `round_K_transcript.md` | The same trajectory as readable Markdown |
 | `round_K_checks.txt` | Raw build / test / Clippy / newmetrics output from the pipeline's checks |
 | `round_K_unsafe_metrics.json` | Aggregated unsafe metrics |
-| `summary.json` | Per-round numbers, cost, and final status |
+| `summary.json` | Per-round numbers and final status. Its `total_cost_usd` is overstated: the pipeline added the resumed round-2 session's running total, which already includes round 1. The correct per-round costs are `model_usage_since_last_result.costUSD` in each `round_K_agent.jsonl` (see API / usage limits above). |
 
 The final Rust code is in `translations/project_N/`. The files `decls.txt`, `derefs.txt`, and `unsafe_spans.txt` in each translation folder are written by the `newmetrics` tool when it runs there. They are not part of the translation.
 
