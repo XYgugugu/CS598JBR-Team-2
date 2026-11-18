@@ -176,6 +176,9 @@ Clippy warnings in our translated code (`src/`, excluding the provided test file
 | bigint | 0 | 1 | 0 | 0 | 1 |
 | Holdem-Odds | 0 | 2 | 0 | 0 | 2 |
 
+Per the instructor's clarification on Campuswire (#435), warnings in the provided test files do not count toward the idiomaticity score.
+The table above equals the output of `cargo +nightly-2025-05-13 clippy --lib --all-features -- -W clippy::correctness -W clippy::style -W clippy::complexity -W clippy::perf`.
+
 These remaining warnings are caused by public signatures that the CRUST-Bench interface requires and that may not be changed: `BigInt::from_str` (`should_implement_trait`), `deck_shuffle(deck: &mut Vec<Card>)` (`ptr_arg`), and `Card::to_string` (`inherent_to_string`). Round 2 of each run sent these warnings back to the agent, which confirmed they cannot be fixed without changing the interface, and the run then stopped with "no progress".
 
 **Additional warnings from the provided test files.** The required Clippy command uses `--all-targets`, so it also checks the benchmark's test files in `src/bin/`. These files are part of the specification and may not be modified, so the warnings in them cannot be fixed by us:
